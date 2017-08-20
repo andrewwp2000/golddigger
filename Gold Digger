@@ -1,0 +1,92 @@
+import random
+
+
+money =int()
+mine = str()
+increment = int()
+explosion = int()
+bought_explosion = int()
+
+increment = 1
+money = 0
+explosion = (random.randint(0,9))
+
+def start():
+    global money
+    global mine
+    mine = input()
+    if mine == "p":
+        mining()
+    elif mine == "b":
+        menu()
+    else:
+        print ("Press P to mine unless you don't want any profits.")
+        start()
+
+def mining():
+    global money
+    global mine
+    global increment
+    money = money + increment
+    print (money)
+    odds_of_explosion()
+    start()
+
+def rand_explosion():
+    global money
+    global explosion
+    if explosion >= 5:
+        money = money + 20
+    print (explosion)
+
+def player_money():
+    global money
+    print("******* Current Money *******")
+    print (money)
+    input()
+    menu()
+
+def menu():
+    print("       $$$ Menu $$$")
+    menu = input("1. Play 2. Money 3. Store 4. Quit")
+    if menu == "1":
+        print ("####### Mine #######")
+        print ("To mine press: P")
+        start()
+    elif menu == "2":
+        player_money()
+    elif menu == "3":
+        store()
+    else:
+        print ("Ok. bye.")
+        SystemExit
+
+def store():
+    global money
+    global increment
+    global bought_explosion
+    print ("&&&&&&& Store &&&&&&&")
+    buy = input("1. Equipment Upgrade 2. Dynamite")
+    if buy == "1":
+        while money >= 10:
+            print ("You will get an extra dollar everytime you mine.")
+            increment = increment + 1
+            money = money - 10
+            menu()
+    elif buy == "2":
+        while money >= 1:
+            print("Dynamite will give you 20 dollars everytime it explodes.")
+            money = money - 1
+            bought_explosion += 1
+            rand_explosion()
+            menu()
+    else:
+        menu()
+
+def odds_of_explosion():
+    global bought_explosion
+    if bought_explosion >= 1:
+        rand_explosion()
+
+print ("####### Gold Digger #######")
+menu()
